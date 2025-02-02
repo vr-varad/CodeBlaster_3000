@@ -27,10 +27,10 @@ const submitCodeController = async (req: Request<{}, {}, RequestBody>, res: Resp
             language
         })
         await session.commitTransaction()
-        return next(res.status(200).json({
+        return res.status(200).json({
             success: true,
             jobId
-        }))
+        })
     } catch (error) {
         await session.abortTransaction();
         session.endSession();
@@ -47,16 +47,16 @@ const checkResultController = async (req: Request, res: Response, next: NextFunc
             jobId
         })
         if (!result) {
-            return next(res.status(404).json({
+            return res.status(404).json({
                 success: false,
                 status: "Pending"
-            }))
+            })
         }
-        return next(res.status(200).json({
+        return res.status(200).json({
             success: true,
             status: result.status,
             response: result.response
-        }))
+        })
     } catch (error) {
         console.error('Error submitting code:', error);
         next(error);
