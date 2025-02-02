@@ -12,6 +12,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "mongodb": "^6.13.0",
+    "mongoose": "^8.9.6",
     "redis": "^4.7.0"
   }
 }

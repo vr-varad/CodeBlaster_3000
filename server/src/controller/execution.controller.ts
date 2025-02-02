@@ -10,7 +10,7 @@ interface RequestBody {
     language: string
 }
 
-const submitCodeController = async (req: Request<{}, {}, RequestBody>, res: Response, next: NextFunction) => {
+const submitCodeController = async (req: Request<{}, {}, RequestBody>, res: Response, next: NextFunction): Promise<void> => {
     const { code, language } = req.body
     const jobId = uuid();
     const session = await mongoose.startSession();
@@ -27,7 +27,7 @@ const submitCodeController = async (req: Request<{}, {}, RequestBody>, res: Resp
             language
         })
         await session.commitTransaction()
-        return res.status(200).json({
+        res.status(200).json({
             success: true,
             jobId
         })
@@ -40,19 +40,20 @@ const submitCodeController = async (req: Request<{}, {}, RequestBody>, res: Resp
     }
 };
 
-const checkResultController = async (req: Request, res: Response, next: NextFunction) => {
+const checkResultController = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     const { jobId } = req.body
     try {
         const result = await Code_Response.findOne({
             jobId
         })
         if (!result) {
-            return res.status(404).json({
+            res.status(404).json({
                 success: false,
                 status: "Pending"
             })
+            return;
         }
-        return res.status(200).json({
+        res.status(200).json({
             success: true,
             status: result.status,
             response: result.response
