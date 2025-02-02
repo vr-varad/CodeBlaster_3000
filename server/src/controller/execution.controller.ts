@@ -3,6 +3,7 @@ import { v4 as uuid } from 'uuid'
 import { client } from '../utils/redis'
 import Code from "../db/code.model";
 import Code_Response from "../db/response.model";
+import mongoose from "mongoose";
 
 interface RequestBody {
     code: string,
@@ -12,7 +13,9 @@ interface RequestBody {
 const submitCodeController = async (req: Request<{}, {}, RequestBody>, res: Response, next: NextFunction) => {
     const { code, language } = req.body
     const jobId = uuid();
+    const session = await mongoose.startSession();
     try {
+        session.startTransaction();
         await client.lPush("submissions", JSON.stringify({
             jobId,
             code,
@@ -23,11 +26,15 @@ const submitCodeController = async (req: Request<{}, {}, RequestBody>, res: Resp
             code,
             language
         })
+        await session.commitTransaction()
         return next(res.status(200).json({
             success: true,
             jobId
         }))
     } catch (error) {
+        await session.abortTransaction();
+        session.endSession();
+        await client.lRem("submissions", 0, JSON.stringify({ jobId, code, language }));
         console.error('Error submitting code:', error);
         next(error);
     }
