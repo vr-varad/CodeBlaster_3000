@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 
 const connectDb = () => {
-    mongoose.connect("mongodb://localhost:27017/", {
+    mongoose.connect("mongodb://mongo:27017/", {
         dbName: "code_blaster_3000"
     } as mongoose.ConnectOptions).then(() => {
         console.log("Database Connected")

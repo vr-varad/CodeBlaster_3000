@@ -1,10 +1,10 @@
 import { createClient } from 'redis'
 
-const client = createClient({
-    url: "redis://127.0.0.1:6379"
+const client: any = createClient({
+    url: "redis://redis:6379"
 })
 
-client.on("error", (err) => {
+client.on("error", (err: Error) => {
     console.log("Error: ", err)
 })
 

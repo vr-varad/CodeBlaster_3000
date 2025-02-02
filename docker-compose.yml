@@ -1,0 +1,51 @@
+version: '1.0'
+
+services:
+  redis:
+    image: redis:latest
+    container_name: code_blaster_3000_redis
+    ports:
+      - "6379:6379"
+    networks:
+      - app-network
+
+  mongo:
+    image: mongo:latest
+    container_name: code_blaster_3000_mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - code_blaster_3000:/data/db
+    networks:
+      - app-network
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: code_blaster_3000_server
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+    depends_on:
+      - redis
+      - mongo
+
+  worker:
+    build:
+      context: ./worker
+      dockerfile: Dockerfile
+    container_name: code_blaster_3000_worker
+    networks:
+      - app-network
+    depends_on:
+      - redis
+      - mongo
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  code_blaster_3000:
