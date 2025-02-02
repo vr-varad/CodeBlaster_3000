@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { v4 as uuid } from 'uuid'
 import { client } from '../utils/redis'
+import Code from "../db/code.model";
+import Code_Response from "../db/response.model";
 
 interface RequestBody {
     code: string,
@@ -16,6 +18,11 @@ const submitCodeController = async (req: Request<{}, {}, RequestBody>, res: Resp
             code,
             language
         }))
+        await Code.create({
+            jobId,
+            code,
+            language
+        })
         return next(res.status(200).json({
             success: true,
             jobId
@@ -26,10 +33,27 @@ const submitCodeController = async (req: Request<{}, {}, RequestBody>, res: Resp
     }
 };
 
-const checkResultController = (req: Request, res: Response, next: NextFunction) => {
+const checkResultController = async (req: Request, res: Response, next: NextFunction) => {
     const { jobId } = req.body
-    //  short polling over db to retrive the response and send to user
-    return next()
+    try {
+        const result = await Code_Response.findOne({
+            jobId
+        })
+        if (!result) {
+            return next(res.status(404).json({
+                success: false,
+                status: "Pending"
+            }))
+        }
+        return next(res.status(200).json({
+            success: true,
+            status: result.status,
+            response: result.response
+        }))
+    } catch (error) {
+        console.error('Error submitting code:', error);
+        next(error);
+    }
 };
 
 
