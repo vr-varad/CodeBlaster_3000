@@ -42,6 +42,9 @@ services:
     depends_on:
       - redis
       - mongo
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    privileged: true
 
 networks:
   app-network:
