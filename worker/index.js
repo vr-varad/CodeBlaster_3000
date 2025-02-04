@@ -2,6 +2,7 @@ import { connectDb } from "./utils/db.js";
 import { client } from "./utils/redis.js";
 import { Code_Response } from './model/response.model.js'
 import { execShellCommand } from "./utils/execCommand.js";
+import { codeRunner } from "./utils/codeRunner.js";
 
 const prePullDockerImages = async () => {
     const images = [
@@ -31,15 +32,9 @@ const main = async () => {
             } = JSON.parse(submission.element);
 
 
-            // will do some computation to get the response and status
-            setTimeout(() => {
-                Code_Response.create({
-                    jobId,
-                    status: "DONE",
-                    response: "hello"
-                })
-            }, 10000);
+            const response = await codeRunner(language, code);
 
+            console.log(response)
 
         } catch (error) {
             console.log(error);

@@ -30,13 +30,11 @@ const userCreationSemaphore = new Semaphore(1);
 
 const execShellCommand = async (cmd) => {
   return new Promise((resolve, reject) => {
-    console.log(`Executing command: ${cmd}`);  // Log the command
     exec(cmd, { timeout: 100000 }, (error, stdout, stderr) => {
       if (error || stderr) {
         console.error("Error: ", stderr || error.message);
         reject(stderr || error.message);
       } else {
-        console.log(`Command output: ${stdout}`);  // Log the output
         resolve(stdout);
       }
     });
