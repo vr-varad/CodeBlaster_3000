@@ -2,22 +2,18 @@
   "name": "worker",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "build": "npx tsc -b",
-    "start": "node dist/index.js",
-    "dev": "npx ts-node-dev --respawn --transpile-only src/index.ts"
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/redis": "^4.0.11",
     "mongodb": "^6.13.0",
     "mongoose": "^8.9.6",
     "redis": "^4.7.0"
   },
-  "devDependencies": {
-    "typescript": "^5.7.3"
-  }
+  "devDependencies": {}
 }

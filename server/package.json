@@ -4,22 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npx tsc -b",
-    "start": "node dist/index.js",
-    "dev": "npx ts-node-dev --respawn --transpile-only src/index.ts"
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/express": "^5.0.0",
     "express": "^4.21.2",
     "mongo": "^0.1.0",
     "mongoose": "^8.9.6",
     "redis": "^4.7.0",
     "uuid": "^11.0.5"
   },
-  "devDependencies": {
-    "typescript": "^5.7.3"
-  }
+  "devDependencies": {}
 }
