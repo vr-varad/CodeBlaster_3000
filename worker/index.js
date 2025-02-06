@@ -15,6 +15,7 @@ const worker = new Worker('code_submission', async (job) => {
                 response
             })
         } catch (error) {
+            console.log(`Job with id ${job.id} giving Error.`)
             await Code_Response.create({
                 jobId: job.id,
                 status: "Error",
@@ -30,10 +31,9 @@ const prePullDockerImages = async () => {
         'node:20'
     ];
 
-    for (const image of images) {
-        console.log(`Pulling image: ${image}`);
-        await execShellCommand(`docker pull ${image}`);
-    }
+    console.log('Pulling Docker Images')
+
+    await Promise.all(images.map((image) => execShellCommand(`docker pull ${image}`)))
 
     console.log('All images pulled successfully!');
 };
