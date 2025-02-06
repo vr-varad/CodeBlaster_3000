@@ -11,9 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bullmq": "^5.40.0",
+    "ioredis": "^5.4.2",
     "mongodb": "^6.13.0",
-    "mongoose": "^8.9.6",
-    "redis": "^4.7.0"
-  },
-  "devDependencies": {}
+    "mongoose": "^8.9.6"
+  }
 }

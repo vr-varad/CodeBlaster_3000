@@ -32,7 +32,6 @@ const execShellCommand = async (cmd) => {
   return new Promise((resolve, reject) => {
     exec(cmd, { timeout: 100000 }, (error, stdout, stderr) => {
       if (error || stderr) {
-        console.error("Error: ", stderr || error.message);
         reject(stderr || error.message);
       } else {
         resolve(stdout);

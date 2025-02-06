@@ -3,7 +3,8 @@
 ## Tech Stack
 - NodeJs
 - Docker
-- Redis
+- Redis - Message Broker
+- BullMQ - Message Queue
 
 ## Design
 

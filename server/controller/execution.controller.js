@@ -1,36 +1,35 @@
-const { v4 } = require("uuid")
-const { client } = require('../utils/redis')
+const redisConnection = require('../utils/redis')
+const { Queue } = require("bullmq")
 const { Code } = require("../db/code.model")
 const { Code_Response } = require("../db/response.model")
 const mongoose = require("mongoose")
 
-
+const submissionsQueue = new Queue("code_submission", {
+    connection: redisConnection
+})
 
 const submitCodeController = async (req, res, next) => {
     const { code, language } = req.body
-    const jobId = v4();
     const session = await mongoose.startSession();
     try {
         session.startTransaction();
-        await client.lPush("submissions", JSON.stringify({
-            jobId,
+        const job = await submissionsQueue.add('code_langauge', {
             code,
             language
-        }))
+        })
         await Code.create({
-            jobId,
+            jobId: job.id,
             code,
             language
         })
         await session.commitTransaction()
         res.status(200).json({
             success: true,
-            jobId
+            jobId: job.id
         })
     } catch (error) {
         await session.abortTransaction();
         session.endSession();
-        await client.lRem("submissions", 0, JSON.stringify({ jobId, code, language }));
         console.error('Error submitting code:', error);
         next(error);
     }
