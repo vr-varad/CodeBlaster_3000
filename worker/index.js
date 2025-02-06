@@ -7,6 +7,7 @@ import { codeRunner } from "./utils/codeRunner.js";
 const prePullDockerImages = async () => {
     const images = [
         'python:3.9',
+        'node:20'
     ];
 
     for (const image of images) {
