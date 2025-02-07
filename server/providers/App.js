@@ -10,6 +10,10 @@ class App {
     static loadDatabase() {
         Database.init();
     }
+
+    static startServer() {
+        Express.startServer();
+    }
 }
 
 export { App }

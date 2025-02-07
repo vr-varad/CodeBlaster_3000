@@ -5,7 +5,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+     "test": "NODE_ENV=test vitest"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,8 @@
     "express": "^4.21.2",
     "ioredis": "^5.4.2",
     "mongo": "^0.1.0",
-    "mongoose": "^8.9.6"
+    "mongoose": "^8.9.6",
+    "supertest": "^7.0.0",
+    "vitest": "^3.0.5"
   }
 }

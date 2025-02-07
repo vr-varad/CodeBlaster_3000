@@ -10,10 +10,14 @@ class Express {
         this.app.use(express.json());
         new Routes(this.app)
         this.app.use(errorHandler);
+    }
+
+    static startServer() {
         this.app.listen(this.PORT, () => {
             console.log("The Server is Running on Port: ", this.PORT)
         })
     }
 }
-
+Express.init()
+export const app = Express.app
 export { Express }

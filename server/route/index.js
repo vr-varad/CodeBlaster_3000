@@ -1,10 +1,9 @@
-import ExpecutionRouter from './execute.route.js'
-
+import ExecutionRouter from './execute.route.js';
 
 class Routes {
     constructor(app) {
-        app.use('/api/v1', ExpecutionRouter)
+        app.use('/api/v1', ExecutionRouter);
     }
 }
 
-export { Routes }
+export { Routes };
