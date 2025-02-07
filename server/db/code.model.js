@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from 'mongoose';
 
 const code_schema = new mongoose.Schema({
     code: String,
@@ -8,4 +8,4 @@ const code_schema = new mongoose.Schema({
 
 const Code = mongoose.model('code', code_schema);
 
-module.exports = { Code }
+export { Code }

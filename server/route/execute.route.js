@@ -1,5 +1,5 @@
-const express = require('express')
-const { checkResultController, submitCodeController } = require('../controller/execution.controller');
+import express from 'express';
+import { checkResultController, submitCodeController } from '../controller/execution.controller.js';
 
 class Execultor {
     router = express.Router();
@@ -14,5 +14,4 @@ class Execultor {
     }
 }
 
-
-module.exports = new Execultor().router;
+export default new Execultor().router;

@@ -1,4 +1,4 @@
-const { App } = require("./providers/App")
+import { App } from "./providers/App.js"
 
 App.loadServer();
 App.loadDatabase();

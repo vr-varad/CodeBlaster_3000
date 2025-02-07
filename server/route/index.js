@@ -1,12 +1,10 @@
-const ExpecutionRouter = require('./execute.route');
+import ExpecutionRouter from './execute.route.js'
 
 
-class Routes{
-    constructor(app){
-        app.use('/api/v1',ExpecutionRouter)
+class Routes {
+    constructor(app) {
+        app.use('/api/v1', ExpecutionRouter)
     }
 }
 
-module.exports = {
-    Routes
-}
+export { Routes }

@@ -1,6 +1,6 @@
-const express = require('express');
-const { Routes } = require('../route');
-const { errorHandler } = require("../utils/errorHandler")
+import express from "express"
+import { Routes } from "../route/index.js"
+import { errorHandler } from "../utils/errorHandler.js"
 
 class Express {
     static app = express();
@@ -16,6 +16,4 @@ class Express {
     }
 }
 
-module.exports = {
-    Express
-}
+export { Express }

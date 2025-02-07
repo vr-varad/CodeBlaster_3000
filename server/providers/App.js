@@ -1,5 +1,5 @@
-const { Database } = require('./Database');
-const { Express } = require('./Express');
+import { Database } from './Database.js';
+import { Express } from './Express.js';
 
 
 class App {
@@ -12,4 +12,4 @@ class App {
     }
 }
 
-module.exports = { App }
+export { App }

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose"
 
 class Database {
     static init() {
@@ -10,4 +10,4 @@ class Database {
     }
 }
 
-module.exports = { Database };
+export { Database }

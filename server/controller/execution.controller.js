@@ -1,8 +1,9 @@
-const redisConnection = require('../utils/redis')
-const { Queue } = require("bullmq")
-const { Code } = require("../db/code.model")
-const { Code_Response } = require("../db/response.model")
-const mongoose = require("mongoose")
+import redisConnection from "../utils/redis.js"
+import { Queue } from "bullmq"
+import { Code } from "../db/code.model.js"
+import {Code_Response} from "../db/response.model.js"
+import mongoose from 'mongoose';
+
 
 const submissionsQueue = new Queue("code_submission", {
     connection: redisConnection
@@ -60,7 +61,4 @@ const checkResultController = async (req, res, next) => {
 };
 
 
-module.exports = {
-    submitCodeController,
-    checkResultController
-}
+export { submitCodeController, checkResultController }
