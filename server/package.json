@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-     "test": "./scripts/run-integration.sh"
+     "test:integration": "./scripts/run-integration.sh"
   },
   "keywords": [],
   "author": "",
