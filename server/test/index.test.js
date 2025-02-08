@@ -2,8 +2,9 @@ import { describe, expect, it, beforeAll } from 'vitest';
 import request from 'supertest';
 import { app } from '../providers/Express.js';
 import { Database } from '../providers/Database.js';
+import wait from './helper/wait.js';
+import reset_db from './helper/reset-db.js';
 
-const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
 describe('API Tests', () => {
     let code_response;
