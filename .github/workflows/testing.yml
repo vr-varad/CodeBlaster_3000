@@ -39,3 +39,4 @@ jobs:
 
       - name: Run Integration test
         run: cd server && npm run test:integration
+        continue-on-error: false 

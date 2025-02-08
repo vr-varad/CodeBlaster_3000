@@ -23,10 +23,12 @@ describe('API Tests', () => {
         expect(code_response.body).toEqual({ success: true, jobId: code_response.body.jobId });
     });
 
-    it('GET /api/v1/result should return pending status', async () => {
+    it('GET /api/v1/result should return answer for code', async () => {
         await wait(1000)
         result_response = await request(app)
             .get('/api/v1/result').send({ jobId: code_response.body.jobId });
+
+        console.log(result_response)
 
         expect(result_response.status).toBe(200);
         expect(result_response.body).toEqual({ success: true, status: 'Success', response: 'Hello World\n' });
