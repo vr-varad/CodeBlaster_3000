@@ -2,7 +2,8 @@ import mongoose from "mongoose"
 
 class Database {
     static init() {
-        mongoose.connect("mongodb://mongo:27017/", {
+        const MONGO_URI = process.env.NODE_ENV === 'production' ? process.env.MONGO_URL : 'mongodb://localhost:27017/'
+        mongoose.connect(MONGO_URI, {
             dbName: "code_blaster_3000"
         }).then(() => {
             console.log("Database Connected")
