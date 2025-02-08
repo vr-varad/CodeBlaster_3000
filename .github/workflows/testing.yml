@@ -24,7 +24,7 @@ jobs:
         uses: docker/setup-qemu-action@v2
 
       - name: Docker compose check
-        uses: docker compose version
+        run: docker compose version
 
       - name: Run Integration test
-        uses: cd server && npm run test:integration
+        run: cd server && npm run test:integration
