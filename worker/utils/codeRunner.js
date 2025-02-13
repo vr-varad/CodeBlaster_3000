@@ -25,7 +25,7 @@ const codeRunner = async (language, code) => {
             throw new Error('Unsupported language');
     }
 
-    const containerCommand = `docker run --rm -u ${userId} --cpus=1 --pids-limit=100 ${imageName} sh -c 'timeout 10s ${command}'`;
+    const containerCommand = `docker run --rm -u ${userId} --read-only --tmpfs /tmp --cpus=1 --pids-limit=100 ${imageName} sh -c 'timeout 10s ${command}'`;
 
 
     try {
