@@ -6,8 +6,13 @@ RUN apk add --no-cache \
     python3 \
     tini \
     sudo \
-    && addgroup -S docker \
-    && adduser -S docker -G docker
+    shadow 
+
+RUN addgroup -S docker
+RUN adduser -S docker -G docker
+RUN echo "docker ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
+RUN mkdir -p /home/docker && chown docker:docker /home/docker
 
 
 WORKDIR /app

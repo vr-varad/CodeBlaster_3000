@@ -46,8 +46,11 @@ const createUser = async (username, cpuLimit = '10000', memoryLimit = '500M') =>
     const createUserCommand = `sudo useradd -m ${username} && echo '${username}:p' | sudo chpasswd`;
     await execShellCommand(createUserCommand);
     console.log(`User ${username} created successfully.`);
+    const getUserIdCommand = `id -u ${username}`;
+    const uid = await execShellCommand(getUserIdCommand);
+    return uid.trim();
   } catch (error) {
-    console.error(`Error creating user ${username}:`, error.message);
+    console.error(`Error creating user ${username}:`, error);
     throw error;
   } finally {
     userCreationSemaphore.release();
@@ -69,7 +72,7 @@ const deleteUser = async (username) => {
 };
 
 const killProcessGroup = async (pgid) => {
-  const killCommand = `sudo kill -TERM -${pgid}`; 
+  const killCommand = `sudo kill -TERM -${pgid}`;
   await execShellCommand(killCommand);
 };
 
