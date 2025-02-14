@@ -1,6 +1,7 @@
 import express from "express"
 import { Routes } from "../route/index.js"
 import { errorHandler } from "../utils/errorHandler.js"
+import Logger from "@code_blaster/logger";
 
 class Express {
     static app = express();
@@ -14,7 +15,7 @@ class Express {
 
     static startServer() {
         this.app.listen(this.PORT, () => {
-            console.log("The Server is Running on Port: ", this.PORT)
+            Logger.log("Server Starting At Port " + this.PORT)
         })
     }
 }

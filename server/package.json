@@ -8,6 +8,9 @@
     "start": "node index.js",
      "test:integration": "./scripts/run-integration.sh"
   },
+  "workspaces":[
+    "../packages/*"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",

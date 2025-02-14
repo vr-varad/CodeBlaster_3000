@@ -1,3 +1,4 @@
+import Logger from "@code_blaster/logger"
 import mongoose from "mongoose"
 
 class Database {
@@ -6,7 +7,7 @@ class Database {
         mongoose.connect(MONGO_URI, {
             dbName: "code_blaster_3000"
         }).then(() => {
-            console.log("Database Connected")
+            Logger.log("Database Connected")
         })
     }
 }
