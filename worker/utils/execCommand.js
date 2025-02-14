@@ -1,3 +1,4 @@
+import Logger from '@code_blaster/logger';
 import { exec } from 'child_process'
 
 class Semaphore {
@@ -45,12 +46,12 @@ const createUser = async (username, cpuLimit = '10000', memoryLimit = '500M') =>
   try {
     const createUserCommand = `sudo useradd -m ${username} && echo '${username}:p' | sudo chpasswd`;
     await execShellCommand(createUserCommand);
-    console.log(`User ${username} created successfully.`);
+    Logger.log(`User ${username} created successfully.`);
     const getUserIdCommand = `id -u ${username}`;
     const uid = await execShellCommand(getUserIdCommand);
     return uid.trim();
   } catch (error) {
-    console.error(`Error creating user ${username}:`, error);
+    Logger.error(`Error creating user ${username}:`, error);
     throw error;
   } finally {
     userCreationSemaphore.release();
@@ -62,9 +63,9 @@ const deleteUser = async (username) => {
   try {
     const deleteUserCommand = `sudo userdel -r ${username}`;
     await execShellCommand(deleteUserCommand);
-    console.log(`User ${username} deleted successfully.`);
+    Logger.log(`User ${username} deleted successfully.`);
   } catch (error) {
-    console.error(`Error deleting user ${username}:`, error.message);
+    Logger.error(`Error deleting user ${username}:`, error.message);
     throw error;
   } finally {
     userCreationSemaphore.release();

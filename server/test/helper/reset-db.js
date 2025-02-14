@@ -1,3 +1,4 @@
+import Logger from "@code_blaster/logger";
 import mongoose from "mongoose";
 
 const reset_db = async () => {
@@ -5,7 +6,7 @@ const reset_db = async () => {
 
     await mongoose.connection.dropDatabase();
 
-    console.log("Database reset successfully!");
+    Logger.log("Database reset successfully!");
 
     await mongoose.connection.close();
 };

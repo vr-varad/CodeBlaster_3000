@@ -3,6 +3,7 @@ import { Queue } from "bullmq"
 import { Code } from "../db/code.model.js"
 import {Code_Response} from "../db/response.model.js"
 import mongoose from 'mongoose';
+import Logger from "@code_blaster/logger";
 
 
 const submissionsQueue = new Queue("code_submission", {
@@ -31,7 +32,7 @@ const submitCodeController = async (req, res, next) => {
     } catch (error) {
         await session.abortTransaction();
         session.endSession();
-        console.error('Error submitting code:', error);
+        Logger.error('Error submitting code:', error);
         next(error);
     }
 };
@@ -55,7 +56,7 @@ const checkResultController = async (req, res, next) => {
             response: result.response
         })
     } catch (error) {
-        console.error('Error submitting code:', error);
+        Logger.error('Error submitting code:', error);
         next(error);
     }
 };

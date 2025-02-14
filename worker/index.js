@@ -4,6 +4,7 @@ import { Code_Response } from './model/response.model.js'
 import { execShellCommand } from "./utils/execCommand.js";
 import { codeRunner } from "./utils/codeRunner.js";
 import { Worker } from 'bullmq'
+import Logger from "@code_blaster/logger";
 
 const worker = new Worker('code_submission', async (job) => {
     if (job.name == "code_langauge") {
@@ -15,7 +16,7 @@ const worker = new Worker('code_submission', async (job) => {
                 response
             })
         } catch (error) {
-            console.log(`Job with id ${job.id} giving Error.`)
+            Logger.log(`Job with id ${job.id} giving Error.`)
             await Code_Response.create({
                 jobId: job.id,
                 status: "Error",
@@ -31,11 +32,11 @@ const prePullDockerImages = async () => {
         'node:20'
     ];
 
-    console.log('Pulling Docker Images')
+    Logger.log('Pulling Docker Images')
 
     await Promise.all(images.map((image) => execShellCommand(`docker pull ${image}`)))
 
-    console.log('All images pulled successfully!');
+    Logger.log('All images pulled successfully!');
 };
 
 
