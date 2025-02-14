@@ -61,7 +61,7 @@ const createUser = async (username, cpuLimit = '10000', memoryLimit = '500M') =>
 const deleteUser = async (username) => {
   await userCreationSemaphore.acquire();
   try {
-    const deleteUserCommand = `sudo userdel -r ${username}`;
+    const deleteUserCommand = `sudo userdel -f ${username}`;
     await execShellCommand(deleteUserCommand);
     Logger.log(`User ${username} deleted successfully.`);
   } catch (error) {

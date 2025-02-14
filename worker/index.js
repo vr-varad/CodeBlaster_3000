@@ -17,6 +17,9 @@ const worker = new Worker('code_submission', async (job) => {
             })
         } catch (error) {
             Logger.log(`Job with id ${job.id} giving Error.`)
+            if(error.includes('Command failed')){
+                error = 'Code Execution Timeout'
+            }
             await Code_Response.create({
                 jobId: job.id,
                 status: "Error",
