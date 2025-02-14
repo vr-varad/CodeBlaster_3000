@@ -21,21 +21,24 @@ services:
 
   server:
     build:
-      context: ./server
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./server/Dockerfile
     container_name: code_blaster_3000_server
     ports:
       - "3000:3000"
     networks:
       - app-network
+    volumes:
+      - ./server:/app
+      - ./packages:/app/packages
     depends_on:
       - redis
       - mongo
 
   worker:
     build:
-      context: ./worker
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./worker/Dockerfile
     container_name: code_blaster_3000_worker
     networks:
       - app-network
@@ -44,6 +47,8 @@ services:
       - mongo
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - ./worker:/app
+      - ./packages:/app/packages
     privileged: true
 
 networks:
