@@ -5,6 +5,8 @@ import { execShellCommand } from "./utils/execCommand.js";
 import { codeRunner } from "./utils/codeRunner.js";
 import { Worker } from 'bullmq'
 import Logger from "@code_blaster/logger";
+import cluster from 'cluster'
+import os from 'os'
 
 const worker = new Worker('code_submission', async (job) => {
     if (job.name == "code_langauge") {
@@ -49,4 +51,11 @@ const main = async () => {
     worker.run()
 }
 
-main();
+if (cluster.isMaster) {
+    const numCPUs = os.cpus().length;
+    for (let i = 0; i < numCPUs; i++) {
+        cluster.fork();
+    }
+}else{
+    main();
+}

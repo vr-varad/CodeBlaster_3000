@@ -10,14 +10,15 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "workspaces":[
+  "workspaces": [
     "../packages/*"
   ],
   "dependencies": {
+    "@code_blaster/logger": "file:../packages/logger",
     "bullmq": "^5.40.0",
     "ioredis": "^5.4.2",
     "mongodb": "^6.13.0",
     "mongoose": "^8.9.6",
-    "@code_blaster/logger": "file:../packages/logger"
+    "pm2": "^5.4.3"
   }
 }
