@@ -69,6 +69,7 @@ class ForbiddenError extends CustomError {
 
 
 export {
+    CustomError,
     UnSupportedLanguageError,
     UserCreationError,
     UserDeletionError,

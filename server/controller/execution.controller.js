@@ -4,6 +4,7 @@ import { Code } from "../db/code.model.js"
 import {Code_Response} from "../db/response.model.js"
 import mongoose from 'mongoose';
 import Logger from "@code_blaster/logger";
+import { BadRequestError } from "@code_blaster/error-handler";
 
 
 const submissionsQueue = new Queue("code_submission", {
@@ -33,7 +34,7 @@ const submitCodeController = async (req, res, next) => {
         await session.abortTransaction();
         session.endSession();
         Logger.error('Error submitting code:', error);
-        next(error);
+        return next(new BadRequestError('Error submitting code'));
     }
 };
 
@@ -57,7 +58,7 @@ const checkResultController = async (req, res, next) => {
         })
     } catch (error) {
         Logger.error('Error submitting code:', error);
-        next(error);
+        return next(new BadRequestError('Error Checking Result'));
     }
 };
 
