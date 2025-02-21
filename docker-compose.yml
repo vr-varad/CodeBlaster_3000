@@ -51,6 +51,18 @@ services:
       - ./packages:/app/packages
     privileged: true
 
+  k6:
+    image: grafana/k6
+    container_name: code_blaster_3000_k6
+    networks:
+      - app-network
+    volumes:
+      - ./loadtests:/scripts
+    command: ["run", "/scripts/test.js"]
+    depends_on:
+      - server
+      - worker
+
 networks:
   app-network:
     driver: bridge
